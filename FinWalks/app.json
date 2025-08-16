@@ -1,0 +1,31 @@
+{
+  "name": "Trading Signals Dashboard",
+  "description": "A comprehensive Flask-based trading signals application with multi-timeframe analysis",
+  "keywords": ["flask", "trading", "finance", "signals", "technical-analysis"],
+  "website": "https://github.com/your-username/trading-signals",
+  "repository": "https://github.com/your-username/trading-signals",
+  "logo": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/icons/graph-up.svg",
+  "success_url": "/",
+  "env": {
+    "OPENAI_API_KEY": {
+      "description": "OpenAI API key for AI-powered signal explanations",
+      "required": true
+    },
+    "SESSION_SECRET": {
+      "description": "Secret key for Flask sessions",
+      "generator": "secret"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+✅ 1. Statistical Arbitrage (StatArb) & Cointegration
+Used in pair trading and mean-reverting strategies:
+
+Z-score for mean reversion:
+
+𝑍
+=
+(
+𝑋
+−
+𝜇
+)
+𝜎
+Z= 
+σ
+(X−μ)
+​
+ 
+Where 
+𝑋
+X is the current spread, 
+𝜇
+μ mean, 
+𝜎
+σ standard deviation.
+
+Cointegration test (Engle-Granger or Johansen):
+Models two or more time series that share a long-term relationship.
+
+✅ 2. Machine Learning-Based Prediction
+Modern quant firms use models such as:
+
+Random Forest / Gradient Boosting Trees
+
+Deep Learning (LSTM, Transformer models)
+
+Reinforcement Learning (Q-learning, PPO)
+
+Autoencoders for market state detection
+
+Clustering + Regime Switching
+
+These models use technical/fundamental indicators as features.
+
+✅ 3. Hidden Markov Models (HMMs) — For regime detection
+Used to model market states (bull/bear, high/low volatility):
+
+𝑃
+(
+𝑠
+𝑡
+∣
+𝑠
+𝑡
+−
+1
+)
+⋅
+𝑃
+(
+𝑥
+𝑡
+∣
+𝑠
+𝑡
+)
+P(s 
+t
+​
+ ∣s 
+t−1
+​
+ )⋅P(x 
+t
+​
+ ∣s 
+t
+​
+ )
+✅ 4. GARCH / EGARCH — For Volatility Forecasting
+𝜎
+𝑡
+2
+=
+𝛼
+0
++
+𝛼
+1
+𝜖
+𝑡
+−
+1
+2
++
+𝛽
+1
+𝜎
+𝑡
+−
+1
+2
+σ 
+t
+2
+​
+ =α 
+0
+​
+ +α 
+1
+​
+ ϵ 
+t−1
+2
+​
+ +β 
+1
+​
+ σ 
+t−1
+2
+​
+ 
+Used to dynamically adjust position size or risk.
+
+✅ 5. Kelly Criterion (Optimal Position Sizing)
+𝑓
+∗
+=
+𝑏
+𝑝
+−
+𝑞
+𝑏
+f 
+∗
+ = 
+b
+bp−q
+​
+ 
+Where:
+
+𝑓
+∗
+f 
+∗
+  = fraction of capital to bet
+
+𝑏
+b = odds received
+
+𝑝
+p = probability of winning
+
+𝑞
+=
+1
+−
+𝑝
+q=1−p
+
+✅ 6. Bayesian Regime Switching Models
+Bayesian inference to determine probability of being in a market regime (e.g., uptrend, sideways, crash).
+
+𝑃
+(
+𝜃
+∣
+𝑋
+)
+=
+𝑃
+(
+𝑋
+∣
+𝜃
+)
+𝑃
+(
+𝜃
+)
+𝑃
+(
+𝑋
+)
+P(θ∣X)= 
+P(X)
+P(X∣θ)P(θ)
+​
+ 
+✅ 7. EVT (Extreme Value Theory) — Tail Risk Management
+Used to model rare events and fat tails:
+
+Generalized Pareto Distribution (GPD) for threshold exceedances
+
+✅ 8. Principal Component Analysis (PCA)
+Used in yield curve modeling, factor analysis, dimensionality reduction:
+
+𝑍
+=
+𝑋
+⋅
+𝑊
+Z=X⋅W
+✅ 9. Alpha Combination & Weighting
+Renaissance combines thousands of signals:
+
+𝛼
+𝑖
+=
+∑
+𝑗
+=
+1
+𝑛
+𝑤
+𝑗
+⋅
+𝑠
+𝑖
+𝑔
+𝑛
+𝑎
+𝑙
+𝑖
+𝑗
+α 
+i
+​
+ = 
+j=1
+∑
+n
+​
+ w 
+j
+​
+ ⋅signal 
+ij
+​
+ 
+✅ 10. Risk Parity and Covariance Adjusted Allocation
+Used for position sizing:
+
+𝑤
+𝑖
+=
+1
+/
+𝜎
+𝑖
+∑
+𝑗
+=
+1
+𝑛
+1
+/
+𝜎
+𝑗
+w 
+i
+​
+ = 
+∑ 
+j=1
+n
+​
+ 1/σ 
+j
+​
+ 
+1/σ 
+i
+​
+ 
+​
+ 
+Or using inverse covariance:
+
+𝑤
+=
+Σ
+−
+1
+⋅
+1
+w=Σ 
+−1
+ ⋅1
+🔷 SPECIALIZED STRATEGIES (By Time Frame)
+🔸 Intraday Trading
+Order Book Imbalance Model
+
+Latency Arbitrage
+
+Kalman Filter for price smoothing
+
+Microstructure Alpha models
+
+🔸 Swing / Positional Trading
+Cointegration + Mean Reversion
+
+RSI/MACD enhanced with neural nets
+
+Ensemble models (Random Forest + XGBoost)
+
+Seasonality & Calendar Effects
+
+🔸 Macro / Long-term Investing
+Global factor models (Fama-French + custom factors)
+
+Regime-based asset allocation (Bayesian, HMM)
+
+Alternative data (satellite, web traffic)
+
+🧠 BONUS: Quantum-Inspired Finance
+Some firms like Xanadu, D-Wave, and hedge funds are experimenting with:
+
+Quantum Annealing for portfolio optimization
+
+Quantum Boltzmann Machines for pricing and prediction
+
+💥 Summary Table
+Area	Model	Formula / Logic
+Mean Reversion	Z-score	
+(
+𝑋
+−
+𝜇
+)
+/
+𝜎
+(X−μ)/σ
+Volatility	GARCH	Dynamic variance model
+Regime Detection	HMM	Probabilistic state changes
+Position Sizing	Kelly Criterion	Optimal bet size
+Risk	EVT	Fat tail modeling
+Alpha Signal Blending	Linear Combination	
+𝛼
+𝑖
+=
+∑
+𝑤
+𝑗
+⋅
+𝑠
+𝑖
+𝑔
+𝑛
+𝑎
+𝑙
+𝑖
+𝑗
+α 
+i
+​
+ =∑w 
+j
+​
+ ⋅signal 
+ij
+​
+ 
+Covariance	Risk Parity	
+Σ
+−
+1
+Σ 
+−1
+  weighting
+Dimensionality Reduction	PCA	Eigenvectors of covariance matrix

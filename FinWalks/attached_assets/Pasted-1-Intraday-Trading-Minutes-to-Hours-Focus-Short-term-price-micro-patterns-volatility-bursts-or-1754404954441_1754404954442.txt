@@ -1,0 +1,507 @@
+1. Intraday Trading (Minutes to Hours)
+Focus: Short-term price micro-patterns, volatility bursts, order flow
+
+Formulas & Models
+Order Flow Imbalance (OFI)
+
+𝐼
+𝑡
+=
+𝑉
+𝑏
+𝑢
+𝑦
+−
+𝑉
+𝑠
+𝑒
+𝑙
+𝑙
+𝑉
+𝑏
+𝑢
+𝑦
++
+𝑉
+𝑠
+𝑒
+𝑙
+𝑙
+I 
+t
+​
+ = 
+V 
+buy
+​
+ +V 
+sell
+​
+ 
+V 
+buy
+​
+ −V 
+sell
+​
+ 
+​
+ 
+Predicts near-term price drift.
+
+Microstructure Alpha (Kyle’s Lambda)
+
+Δ
+𝑃
+=
+𝜆
+𝑄
+ΔP=λQ
+Price impact of signed order flow 
+𝑄
+Q.
+
+Kalman Filter Trend Estimation
+
+𝑥
+𝑡
+=
+𝐴
+𝑥
+𝑡
+−
+1
++
+𝑤
+𝑡
+,
+𝑧
+𝑡
+=
+𝐻
+𝑥
+𝑡
++
+𝑣
+𝑡
+x 
+t
+​
+ =Ax 
+t−1
+​
+ +w 
+t
+​
+ ,z 
+t
+​
+ =Hx 
+t
+​
+ +v 
+t
+​
+ 
+Smooths noisy price ticks to detect micro-trends.
+
+Jump-Diffusion Models
+
+𝑑
+𝑆
+𝑡
+=
+𝜇
+𝑆
+𝑡
+𝑑
+𝑡
++
+𝜎
+𝑆
+𝑡
+𝑑
+𝑊
+𝑡
++
+𝐽
+𝑡
+𝑑
+𝑁
+𝑡
+dS 
+t
+​
+ =μS 
+t
+​
+ dt+σS 
+t
+​
+ dW 
+t
+​
+ +J 
+t
+​
+ dN 
+t
+​
+ 
+Detects sudden news-driven jumps.
+
+Intraday Volatility (HAR-RV or GARCH)
+
+HAR-RV: uses realized vol at different horizons.
+
+EGARCH: captures asymmetric volatility.
+
+2. Positional Trading (1–10 days)
+Focus: Short-term trends, mean reversion, volatility regime shifts
+
+Formulas & Models
+Cointegration + Z-score
+
+𝑍
+𝑡
+=
+𝑆
+𝑝
+𝑟
+𝑒
+𝑎
+𝑑
+−
+𝜇
+𝜎
+Z 
+t
+​
+ = 
+σ
+Spread−μ
+​
+ 
+Pairs trading or basket mean reversion.
+
+Hidden Markov Models (HMM)
+
+𝑃
+(
+𝑆
+𝑡
+∣
+𝑆
+𝑡
+−
+1
+)
+=
+𝐴
+𝑆
+𝑡
+−
+1
+,
+𝑆
+𝑡
+P(S 
+t
+​
+ ∣S 
+t−1
+​
+ )=A 
+S 
+t−1
+​
+ ,S 
+t
+​
+ 
+​
+ 
+Detects market regimes (uptrend, downtrend, sideways).
+
+GARCH / EGARCH
+
+𝜎
+𝑡
+2
+=
+𝛼
+0
++
+𝛼
+1
+𝜖
+𝑡
+−
+1
+2
++
+𝛽
+𝜎
+𝑡
+−
+1
+2
+σ 
+t
+2
+​
+ =α 
+0
+​
+ +α 
+1
+​
+ ϵ 
+t−1
+2
+​
+ +βσ 
+t−1
+2
+​
+ 
+Position sizing and stops based on volatility.
+
+Spectral/FFT Analysis
+
+Detects repeating short-term cycles.
+
+3. Swing Trading (2–30 days)
+Focus: Medium-term patterns
+
+Already listed:
+
+Cointegration with Z-score
+
+GARCH volatility prediction
+
+HMM regime switching
+
+Also add:
+
+Wavelet Decomposition: identify multi-scale trends.
+
+Momentum Factor (12-1 months):
+
+𝑀
+=
+𝑃
+𝑡
+𝑃
+𝑡
+−
+252
+−
+1
+M= 
+P 
+t−252
+​
+ 
+P 
+t
+​
+ 
+​
+ −1
+4. Macro / Investing (Months to Years)
+Focus: Structural shifts, factors, long-term alpha
+
+Formulas & Models
+Nonlinear Factor Models
+
+𝑅
+𝑖
+=
+∑
+𝛽
+𝑗
+𝐹
+𝑗
++
+∑
+𝑗
+,
+𝑘
+𝛾
+𝑗
+𝑘
+𝐹
+𝑗
+𝐹
+𝑘
+R 
+i
+​
+ =∑β 
+j
+​
+ F 
+j
+​
+ + 
+j,k
+∑
+​
+ γ 
+jk
+​
+ F 
+j
+​
+ F 
+k
+​
+ 
+Combines growth, value, quality, momentum factors.
+
+Bayesian Regime Switching
+
+Markov-switching dynamic linear models:
+
+𝑦
+𝑡
+=
+𝐹
+𝑆
+𝑡
+𝑥
+𝑡
++
+𝜈
+𝑡
+,
+𝑥
+𝑡
+=
+𝐺
+𝑆
+𝑡
+𝑥
+𝑡
+−
+1
++
+𝜔
+𝑡
+y 
+t
+​
+ =F 
+S 
+t
+​
+ 
+​
+ x 
+t
+​
+ +ν 
+t
+​
+ ,x 
+t
+​
+ =G 
+S 
+t
+​
+ 
+​
+ x 
+t−1
+​
+ +ω 
+t
+​
+ 
+Adjust weights based on regime probabilities.
+
+Macroeconomic Predictors:
+
+PCA on macro series (inflation, rates, GDP).
+
+5. Risk Management (For All Timeframes)
+Key Formulas
+Kelly Criterion
+
+𝑓
+∗
+=
+𝑏
+𝑝
+−
+𝑞
+𝑏
+f 
+∗
+ = 
+b
+bp−q
+​
+ 
+Optimal trade sizing.
+
+Extreme Value Theory (EVT)
+
+𝑃
+(
+𝑋
+>
+𝑢
+)
+≈
+1
+−
+𝐹
+(
+𝑢
+)
+P(X>u)≈1−F(u)
+Model fat-tail risks with Generalized Pareto Distribution.
+
+Expected Shortfall (CVaR)
+
+𝐸
+𝑆
+𝛼
+=
+𝐸
+[
+𝐿
+∣
+𝐿
+>
+𝑉
+𝑎
+𝑅
+𝛼
+]
+ES 
+α
+​
+ =E[L∣L>VaR 
+α
+​
+ ]
+Summary Table
+Style	Key Models/Formula
+Intraday	OFI, Kyle’s Lambda, Kalman Filter, Jump Diffusion, HAR-RV
+Positional	Cointegration Z, HMM, GARCH, Spectral FFT
+Swing	Cointegration, GARCH, HMM, Wavelets, Momentum
+Macro	Nonlinear Factor Models, Bayesian Regime Switch, PCA
+Risk Mgmt	Kelly, EVT, Expected Shortfall
+
+How these are combined (hedge fund style)
+Generate signals from multiple models.
+
+Use HMM/regime filters to activate correct models.
+
+Combine scores into one final confidence (ensemble).
+
+Size trades with Kelly, control risk with EVT.

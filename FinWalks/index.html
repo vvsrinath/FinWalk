@@ -1,0 +1,3372 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinWalk - Advanced Financial Analysis Platform</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <style>
+        :root {
+            /* Dark theme (default) */
+            --finwalk-primary: #00d4aa;
+            --finwalk-secondary: #0066ff;
+            --finwalk-accent: #ff6b35;
+            --finwalk-success: #10b981;
+            --finwalk-warning: #f59e0b;
+            --finwalk-danger: #ef4444;
+            --finwalk-info: #3b82f6;
+            --finwalk-dark: #0a0e1a;
+            --finwalk-card: #1a1f2e;
+            --finwalk-text: #e2e8f0;
+            --finwalk-bg: linear-gradient(135deg, #0a0e1a 0%, #0f172a 100%);
+            --finwalk-border: rgba(0, 212, 170, 0.2);
+            --finwalk-shadow: rgba(0, 0, 0, 0.3);
+        }
+        
+        [data-theme="light"] {
+            /* Light theme */
+            --finwalk-primary: #059669;
+            --finwalk-secondary: #2563eb;
+            --finwalk-accent: #dc2626;
+            --finwalk-success: #10b981;
+            --finwalk-warning: #d97706;
+            --finwalk-danger: #dc2626;
+            --finwalk-info: #2563eb;
+            --finwalk-dark: #f8fafc;
+            --finwalk-card: #ffffff;
+            --finwalk-text: #1e293b;
+            --finwalk-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --finwalk-border: rgba(5, 150, 105, 0.2);
+            --finwalk-shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="colorful"] {
+            /* Vibrant Colorful theme */
+            --finwalk-primary: #ff6b9d;
+            --finwalk-secondary: #4ecdc4;
+            --finwalk-accent: #ffe66d;
+            --finwalk-success: #06ffa5;
+            --finwalk-warning: #ff9f43;
+            --finwalk-danger: #ff6b6b;
+            --finwalk-info: #74b9ff;
+            --finwalk-dark: #2d3436;
+            --finwalk-card: rgba(45, 52, 54, 0.95);
+            --finwalk-text: #ffffff;
+            --finwalk-bg: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            --finwalk-border: rgba(255, 107, 157, 0.4);
+            --finwalk-shadow: rgba(255, 107, 157, 0.3);
+        }
+        
+        [data-theme="neon"] {
+            /* Neon theme */
+            --finwalk-primary: #ff0080;
+            --finwalk-secondary: #00ff80;
+            --finwalk-accent: #8000ff;
+            --finwalk-success: #00ffff;
+            --finwalk-warning: #ffff00;
+            --finwalk-danger: #ff4000;
+            --finwalk-info: #0080ff;
+            --finwalk-dark: #0a0a0a;
+            --finwalk-card: rgba(20, 20, 20, 0.95);
+            --finwalk-text: #ffffff;
+            --finwalk-bg: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a1a1a 100%);
+            --finwalk-border: rgba(255, 0, 128, 0.5);
+            --finwalk-shadow: rgba(255, 0, 128, 0.4);
+        }
+        
+        body {
+            background: var(--finwalk-bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            min-height: 100vh;
+            color: var(--finwalk-text);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow-x: hidden;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        /* Mobile-first responsive typography */
+        @media (max-width: 576px) {
+            body {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--finwalk-bg);
+            z-index: -1;
+        }
+        
+        [data-theme="colorful"] body::before {
+            animation: colorfulBackground 10s ease-in-out infinite;
+        }
+        
+        [data-theme="neon"] body::before {
+            animation: neonBackground 8s ease-in-out infinite;
+        }
+        
+        @keyframes colorfulBackground {
+            0%, 100% { 
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            }
+            25% { 
+                background: linear-gradient(135deg, #4facfe 0%, #667eea 25%, #764ba2 50%, #f093fb 75%, #f5576c 100%);
+            }
+            50% { 
+                background: linear-gradient(135deg, #f5576c 0%, #4facfe 25%, #667eea 50%, #764ba2 75%, #f093fb 100%);
+            }
+            75% { 
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #4facfe 50%, #667eea 75%, #764ba2 100%);
+            }
+        }
+        
+        @keyframes neonBackground {
+            0%, 100% { 
+                background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a1a1a 100%);
+            }
+            50% { 
+                background: linear-gradient(135deg, #1a0a1a 0%, #0a1a1a 50%, #1a1a0a 100%);
+            }
+        }
+        
+        .finwalk-header {
+            background: rgba(26, 31, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--finwalk-border);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        [data-theme="light"] .finwalk-header {
+            background: rgba(248, 250, 252, 0.95);
+        }
+        
+        [data-theme="colorful"] .finwalk-header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            border-bottom: 1px solid rgba(255, 107, 157, 0.3);
+        }
+        
+        [data-theme="neon"] .finwalk-header {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 2px solid var(--finwalk-primary);
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+        }
+        
+        .finwalk-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--finwalk-primary), var(--finwalk-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Mobile logo responsive */
+        @media (max-width: 576px) {
+            .finwalk-logo {
+                font-size: 1.5rem;
+            }
+            
+            .finwalk-logo-icon {
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 1.2rem !important;
+            }
+        }
+        
+        .finwalk-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--finwalk-primary), var(--finwalk-secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .finwalk-card {
+            background: var(--finwalk-card);
+            border: 1px solid var(--finwalk-border);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px var(--finwalk-shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        /* Mobile card responsive */
+        @media (max-width: 768px) {
+            .finwalk-card {
+                border-radius: 12px;
+                margin-bottom: 0.75rem;
+                box-shadow: 0 4px 16px var(--finwalk-shadow);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .finwalk-card {
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+                box-shadow: 0 2px 8px var(--finwalk-shadow);
+            }
+        }
+        
+        .finwalk-card:hover {
+            border-color: var(--finwalk-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 212, 170, 0.2);
+        }
+        
+        [data-theme="colorful"] .finwalk-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255, 107, 157, 0.3);
+            border-color: #ff6b9d;
+        }
+        
+        [data-theme="neon"] .finwalk-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(255, 0, 128, 0.4);
+            border-color: #ff0080;
+        }
+        
+        .theme-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .theme-btn {
+            width: 35px;
+            height: 35px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+        
+        /* Mobile theme button responsive */
+        @media (max-width: 576px) {
+            .theme-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+            }
+            
+            .theme-switcher {
+                gap: 0.75rem !important;
+            }
+        }
+        
+        .theme-btn.active {
+            border-color: var(--finwalk-primary);
+            box-shadow: 0 0 15px rgba(0, 212, 170, 0.3);
+        }
+        
+        .theme-btn.dark {
+            background: linear-gradient(135deg, #0a0e1a, #1a1f2e);
+        }
+        
+        .theme-btn.light {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        }
+        
+        .theme-btn.colorful {
+            background: linear-gradient(135deg, #ff6b9d, #4ecdc4, #ffe66d);
+            animation: colorfulPulse 2s ease-in-out infinite alternate;
+        }
+        
+        .theme-btn.neon {
+            background: linear-gradient(135deg, #ff0080, #00ff80, #8000ff);
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes colorfulPulse {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 107, 157, 0.3); }
+            100% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 107, 157, 0.6); }
+        }
+        
+        @keyframes neonGlow {
+            0% { box-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080; }
+            100% { box-shadow: 0 0 10px #ff0080, 0 0 20px #ff0080, 0 0 30px #ff0080; }
+        }
+        
+        .signal-card {
+            border-left: 4px solid var(--finwalk-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .signal-card.buy-signal {
+            border-left: 4px solid var(--finwalk-success);
+            background: linear-gradient(135deg, 
+                rgba(16, 185, 129, 0.1) 0%, 
+                var(--finwalk-card) 100%);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+        }
+        
+        .signal-card.sell-signal {
+            border-left: 4px solid var(--finwalk-danger);
+            background: linear-gradient(135deg, 
+                rgba(239, 68, 68, 0.1) 0%, 
+                var(--finwalk-card) 100%);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2);
+        }
+        
+        .signal-card.hold-signal {
+            border-left: 4px solid var(--finwalk-warning);
+            background: linear-gradient(135deg, 
+                rgba(245, 158, 11, 0.1) 0%, 
+                var(--finwalk-card) 100%);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+        }
+        
+        [data-theme="colorful"] .signal-card.buy-signal {
+            background: linear-gradient(135deg, rgba(6, 255, 165, 0.15), var(--finwalk-card));
+            border-left-color: #06ffa5;
+            box-shadow: 0 8px 32px rgba(6, 255, 165, 0.3);
+        }
+        
+        [data-theme="colorful"] .signal-card.sell-signal {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), var(--finwalk-card));
+            border-left-color: #ff6b6b;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+        }
+        
+        [data-theme="colorful"] .signal-card.hold-signal {
+            background: linear-gradient(135deg, rgba(255, 230, 109, 0.15), var(--finwalk-card));
+            border-left-color: #ffe66d;
+            box-shadow: 0 8px 32px rgba(255, 230, 109, 0.3);
+        }
+        
+        [data-theme="neon"] .signal-card.buy-signal {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), var(--finwalk-card));
+            border-left-color: #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+        }
+        
+        [data-theme="neon"] .signal-card.sell-signal {
+            background: linear-gradient(135deg, rgba(255, 64, 0, 0.1), var(--finwalk-card));
+            border-left-color: #ff4000;
+            box-shadow: 0 0 30px rgba(255, 64, 0, 0.4);
+        }
+        
+        [data-theme="neon"] .signal-card.hold-signal {
+            background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), var(--finwalk-card));
+            border-left-color: #ffff00;
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.4);
+        }
+        
+        .btn-finwalk {
+            background: linear-gradient(135deg, var(--finwalk-primary), var(--finwalk-secondary));
+            border: none;
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-finwalk:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 170, 0.25);
+        }
+        
+        .btn-outline-finwalk {
+            border: 2px solid var(--finwalk-primary);
+            color: var(--finwalk-primary);
+            background: transparent;
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-finwalk:hover {
+            background: var(--finwalk-primary);
+            color: var(--finwalk-dark);
+            transform: translateY(-2px);
+        }
+        
+        .signal-card {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 102, 255, 0.1));
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .signal-card:hover {
+            border-color: rgba(0, 212, 170, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 212, 170, 0.15);
+        }
+        
+        .signal-buy {
+            border-left: 4px solid #22c55e;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+        }
+        
+        .signal-sell {
+            border-left: 4px solid #ef4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+        }
+        
+        .signal-hold {
+            border-left: 4px solid #94a3b8;
+            background: linear-gradient(135deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.05));
+        }
+        
+        .confidence-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--finwalk-primary), var(--finwalk-secondary));
+            transition: width 0.8s ease;
+        }
+        
+        .instrument-category {
+            background: rgba(0, 212, 170, 0.05);
+            border: 1px solid rgba(0, 212, 170, 0.1);
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .instrument-category:hover {
+            background: rgba(0, 212, 170, 0.1);
+            border-color: rgba(0, 212, 170, 0.3);
+        }
+        
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-input {
+            background: rgba(26, 31, 46, 0.8);
+            border: 2px solid rgba(0, 212, 170, 0.2);
+            border-radius: 12px;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1.1rem;
+            width: 100%;
+            color: var(--finwalk-text);
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--finwalk-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+            outline: none;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--finwalk-primary);
+            font-size: 1.2rem;
+        }
+        
+        .timeframe-selector {
+            background: rgba(26, 31, 46, 0.8);
+            border: 2px solid rgba(0, 212, 170, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            color: var(--finwalk-text);
+            transition: all 0.3s ease;
+        }
+        
+        .timeframe-selector:focus {
+            border-color: var(--finwalk-primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+            background: rgba(26, 31, 46, 0.9);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 102, 255, 0.1));
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: var(--finwalk-card);
+            border: 1px solid rgba(0, 212, 170, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: rgba(0, 212, 170, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--finwalk-primary), var(--finwalk-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 212, 170, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--finwalk-primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        [data-theme="colorful"] .loading-spinner {
+            border: 3px solid rgba(255, 107, 157, 0.3);
+            border-top-color: #ff6b9d;
+            border-right-color: #4ecdc4;
+            border-bottom-color: #ffe66d;
+            animation: colorfulSpin 1.5s ease-in-out infinite;
+        }
+        
+        [data-theme="neon"] .loading-spinner {
+            border: 3px solid rgba(255, 0, 128, 0.3);
+            border-top-color: #ff0080;
+            animation: neonSpin 1s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.4);
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes colorfulSpin {
+            0% { 
+                transform: rotate(0deg);
+                filter: hue-rotate(0deg);
+            }
+            100% { 
+                transform: rotate(360deg);
+                filter: hue-rotate(360deg);
+            }
+        }
+        
+        @keyframes neonSpin {
+            0% { 
+                transform: rotate(0deg);
+                box-shadow: 0 0 15px rgba(255, 0, 128, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(0, 255, 128, 0.6);
+            }
+            100% { 
+                transform: rotate(360deg);
+                box-shadow: 0 0 15px rgba(255, 0, 128, 0.4);
+            }
+        }
+        
+        .consensus-card {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(0, 102, 255, 0.15));
+            border: 2px solid rgba(0, 212, 170, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-content {
+            background: var(--finwalk-card);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            border-radius: 16px;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(0, 212, 170, 0.1);
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1050;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .mobile-menu-content {
+            background: var(--finwalk-card);
+            border: 1px solid var(--finwalk-border);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Mobile responsive improvements */
+        @media (max-width: 768px) {
+            .finwalk-logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .display-4 {
+                font-size: 2rem !important;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .finwalk-header {
+                padding: 0.75rem 0;
+            }
+            
+            .hero-section {
+                padding: 1.5rem 0.5rem;
+            }
+            
+            .display-4 {
+                font-size: 1.75rem !important;
+                line-height: 1.3;
+            }
+            
+            .lead {
+                font-size: 1rem;
+            }
+            
+            .search-container {
+                margin-bottom: 0.75rem;
+            }
+            
+            .btn {
+                font-size: 0.875rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .btn-lg {
+                font-size: 1rem;
+                padding: 0.75rem 1.5rem;
+            }
+            
+            .signal-card {
+                touch-action: manipulation;
+                transition: transform 0.2s ease;
+            }
+            
+            .signal-card:hover {
+                transform: translateY(-2px);
+            }
+            
+            .signal-card:active {
+                transform: translateY(0);
+            }
+            
+            .finwalk-card {
+                min-height: auto;
+            }
+        }
+        
+        /* Card responsive improvements */
+        @media (max-width: 992px) {
+            .col-lg-4 {
+                margin-bottom: 1rem;
+            }
+            
+            .finwalk-card {
+                padding: 1.5rem !important;
+            }
+            
+            .signal-card .h4 {
+                font-size: 1.25rem;
+            }
+            
+            /* Modal improvements for mobile */
+            .modal-dialog {
+                margin: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+            
+            .modal-content {
+                border-radius: 12px;
+            }
+            
+            .modal-body {
+                padding: 1rem;
+            }
+            
+            /* Touch-friendly buttons */
+            .btn {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+            
+            .instrument-item button,
+            .theme-btn {
+                min-width: 44px;
+                min-height: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="finwalk-header sticky-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="finwalk-logo">
+                        <div class="finwalk-logo-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        FinWalk
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    <!-- Desktop Navigation -->
+                    <div class="d-none d-lg-flex justify-content-end align-items-center gap-3">
+                        <div class="theme-switcher">
+                            <div class="theme-btn dark active" onclick="dashboard.setTheme('dark')" title="Dark Theme"></div>
+                            <div class="theme-btn light" onclick="dashboard.setTheme('light')" title="Light Theme"></div>
+                            <div class="theme-btn colorful" onclick="dashboard.setTheme('colorful')" title="Colorful Theme"></div>
+                            <div class="theme-btn neon" onclick="dashboard.setTheme('neon')" title="Neon Theme"></div>
+                        </div>
+                        <button class="btn btn-success me-2" onclick="dashboard.showBestTradesModal()">
+                            <i class="bi bi-star-fill me-1"></i>
+                            Best Trades Today
+                        </button>
+                        <button class="btn btn-outline-finwalk me-2" onclick="dashboard.showInstrumentsModal()">
+                            <i class="bi bi-collection me-1"></i>
+                            Browse Markets
+                        </button>
+                        <button class="btn btn-finwalk" onclick="dashboard.showMultitimeframeModal()">
+                            <i class="bi bi-layers me-1"></i>
+                            Multi-Timeframe
+                        </button>
+                        <button class="btn btn-outline-success" onclick="dashboard.showRiskDashboard()">
+                            <i class="bi bi-shield-exclamation me-1"></i>
+                            Risk Dashboard
+                        </button>
+                        <button class="btn btn-outline-finwalk" onclick="dashboard.showNotificationPanel()">
+                            <i class="bi bi-bell me-1"></i>
+                            Alerts
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Navigation -->
+                    <div class="d-lg-none d-flex justify-content-end align-items-center gap-2">
+                        <div class="theme-switcher">
+                            <div class="theme-btn dark active" onclick="dashboard.setTheme('dark')" title="Dark"></div>
+                            <div class="theme-btn light" onclick="dashboard.setTheme('light')" title="Light"></div>
+                            <div class="theme-btn colorful" onclick="dashboard.setTheme('colorful')" title="Colorful"></div>
+                            <div class="theme-btn neon" onclick="dashboard.setTheme('neon')" title="Neon"></div>
+                        </div>
+                        <button class="btn btn-outline-finwalk" onclick="dashboard.toggleMobileMenu()" id="mobileMenuBtn">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay d-lg-none" style="display: none;">
+        <div class="mobile-menu-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">Menu</h5>
+                <button class="btn btn-outline-light btn-sm" onclick="dashboard.toggleMobileMenu()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-finwalk" onclick="dashboard.showInstrumentsModal(); dashboard.toggleMobileMenu();">
+                    <i class="bi bi-collection me-2"></i>
+                    Browse Markets
+                </button>
+                <button class="btn btn-outline-finwalk" onclick="dashboard.showMultitimeframeModal(); dashboard.toggleMobileMenu();">
+                    <i class="bi bi-layers me-2"></i>
+                    Multi-Timeframe Analysis
+                </button>
+                <button class="btn btn-outline-success" onclick="dashboard.showRiskDashboard(); dashboard.toggleMobileMenu();">
+                    <i class="bi bi-shield-exclamation me-2"></i>
+                    Risk Management Dashboard
+                </button>
+                <button class="btn btn-outline-finwalk" onclick="dashboard.showNotificationPanel(); dashboard.toggleMobileMenu();">
+                    <i class="bi bi-bell me-2"></i>
+                    Alerts & Notifications
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-4">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="display-4 mb-3">
+                <span style="background: linear-gradient(135deg, var(--finwalk-primary), var(--finwalk-secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    Advanced Financial Analysis
+                </span>
+            </h1>
+            <p class="lead mb-4">
+                Professional-grade trading signals across stocks, commodities, crypto, and forex markets
+            </p>
+            
+            <!-- Search Section -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-7 mb-3 mb-md-0">
+                            <div class="search-container">
+                                <i class="bi bi-search search-icon"></i>
+                                <input type="text" 
+                                       id="symbolInput" 
+                                       class="search-input" 
+                                       placeholder="Enter symbol (e.g., AAPL, BTC-USD)"
+                                       value="AAPL">
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3 mb-md-0">
+                            <select id="timeframeSelect" class="timeframe-selector w-100">
+                                <option value="1m">1 Min</option>
+                                <option value="5m">5 Min</option>
+                                <option value="15m">15 Min</option>
+                                <option value="1h">1 Hour</option>
+                                <option value="4h">4 Hours</option>
+                                <option value="1d" selected>Daily</option>
+                                <option value="1wk">Weekly</option>
+                                <option value="1mo">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <button id="analyzeBtn" class="btn btn-finwalk w-100" onclick="dashboard.analyzeSymbol()">
+                                <i class="bi bi-activity me-1"></i>
+                                <span class="d-none d-sm-inline">Analyze</span>
+                                <span class="d-sm-none">Go</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <h5>Smart Money Concepts</h5>
+                <p class="text-muted">Advanced institutional trading patterns analysis with Break of Structure and Change of Character detection</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-currency-exchange"></i>
+                </div>
+                <h5>Multi-Asset Coverage</h5>
+                <p class="text-muted">Comprehensive analysis across stocks, commodities, cryptocurrencies, and forex markets</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <h5>Multi-Timeframe Analysis</h5>
+                <p class="text-muted">Synchronized signals across 15m, 1h, 4h, daily, weekly, and monthly timeframes</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h5>Risk Management</h5>
+                <p class="text-muted">ATR-based stop loss and take profit calculations with support/resistance levels</p>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" style="display: none;">
+            <div class="finwalk-card p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="mb-0">
+                        <span id="currentSymbol">AAPL</span> Analysis
+                    </h3>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-finwalk btn-sm" onclick="dashboard.toggleDetailedView()">
+                            <i class="bi bi-eye me-1"></i>
+                            <span id="detailToggleText">Detailed View</span>
+                        </button>
+                        <button class="btn btn-success btn-sm me-2" onclick="dashboard.showBestTradesModal()" id="bestTradesBtn">
+                            <i class="bi bi-star-fill me-1"></i>
+                            Best Trades Today
+                        </button>
+                        <button class="btn btn-outline-finwalk btn-sm" onclick="dashboard.explainSignals()">
+                            <i class="bi bi-robot me-1"></i>
+                            AI Explain
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Loading State -->
+                <div id="loadingState" class="text-center py-5" style="display: none;">
+                    <div class="loading-spinner mb-3"></div>
+                    <p class="text-muted">Analyzing market data...</p>
+                </div>
+                
+                <!-- Signals Container -->
+                <div id="signalsContainer"></div>
+                
+                <!-- AI Explanation -->
+                <div id="aiExplanation" style="display: none;" class="mt-4">
+                    <div class="finwalk-card p-3">
+                        <h5 class="mb-3">
+                            <i class="bi bi-robot me-2"></i>
+                            AI Analysis
+                        </h5>
+                        <div id="explanationContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="alert alert-danger" style="display: none;">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <span id="errorText"></span>
+        </div>
+    </div>
+
+    <!-- Notification Panel Modal -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title" id="notificationModalLabel">
+                        <i class="bi bi-bell me-2"></i>
+                        Trading Alerts & Notifications
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Advanced Notification System</strong><br>
+                        Create personalized alerts based on technical indicators, candlestick patterns, and price movements.
+                    </div>
+                    
+                    <!-- Create Alert Section -->
+                    <div class="card bg-transparent border-secondary mb-4">
+                        <div class="card-header">
+                            <h6 class="mb-0">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Create New Alert
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <form id="alertForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="alertSymbol" class="form-label">Symbol</label>
+                                            <input type="text" class="form-control" id="alertSymbol" placeholder="AAPL" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="alertTimeframe" class="form-label">Timeframe</label>
+                                            <select class="form-select" id="alertTimeframe">
+                                                <option value="1m">1 Minute</option>
+                                                <option value="5m">5 Minutes</option>
+                                                <option value="15m">15 Minutes</option>
+                                                <option value="1h">1 Hour</option>
+                                                <option value="4h">4 Hours</option>
+                                                <option value="1d" selected>Daily</option>
+                                                <option value="1wk">Weekly</option>
+                                                <option value="1mo">Monthly</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Alert Conditions</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="alertBuySignal">
+                                                    <label class="form-check-label" for="alertBuySignal">
+                                                        BUY Signal Generated
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="alertSellSignal">
+                                                    <label class="form-check-label" for="alertSellSignal">
+                                                        SELL Signal Generated
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="alertMacdBull">
+                                                    <label class="form-check-label" for="alertMacdBull">
+                                                        MACD Bullish Crossover
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="alertMacdBear">
+                                                    <label class="form-check-label" for="alertMacdBear">
+                                                        MACD Bearish Crossover
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="alertPriceAbove" class="form-label">Price Above</label>
+                                                    <input type="number" class="form-control" id="alertPriceAbove" placeholder="0.00" step="0.01">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="alertPriceBelow" class="form-label">Price Below</label>
+                                                    <input type="number" class="form-control" id="alertPriceBelow" placeholder="0.00" step="0.01">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="alertRsiAbove" class="form-label">RSI Above</label>
+                                                    <input type="number" class="form-control" id="alertRsiAbove" placeholder="70" min="0" max="100">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="alertRsiBelow" class="form-label">RSI Below</label>
+                                                    <input type="number" class="form-control" id="alertRsiBelow" placeholder="30" min="0" max="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-finwalk">
+                                    <i class="bi bi-bell me-1"></i>
+                                    Create Alert
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Alerts Section -->
+                    <div class="card bg-transparent border-secondary mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">
+                                <i class="bi bi-list-check me-2"></i>
+                                Active Alerts
+                            </h6>
+                            <button class="btn btn-outline-finwalk btn-sm" onclick="dashboard.refreshAlerts()">
+                                <i class="bi bi-arrow-clockwise me-1"></i>
+                                Refresh
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="activeAlerts">
+                                <div class="text-center py-3">
+                                    <i class="bi bi-bell-slash text-muted" style="font-size: 2rem;"></i>
+                                    <p class="text-muted mt-2">No active alerts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notification History Section -->
+                    <div class="card bg-transparent border-secondary">
+                        <div class="card-header">
+                            <h6 class="mb-0">
+                                <i class="bi bi-clock-history me-2"></i>
+                                Notification History
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="notificationHistory">
+                                <div class="text-center py-3">
+                                    <i class="bi bi-inbox text-muted" style="font-size: 2rem;"></i>
+                                    <p class="text-muted mt-2">No notifications yet</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-finwalk" onclick="dashboard.checkAllAlerts()">
+                        <i class="bi bi-search me-1"></i>
+                        Check All Alerts
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instruments Browser Modal -->
+    <div class="modal fade" id="instrumentsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-collection me-2"></i>
+                        Financial Instruments
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="instrumentsContent">
+                        <div class="text-center py-5">
+                            <div class="loading-spinner mb-3"></div>
+                            <p class="text-muted">Loading instruments...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multi-Timeframe Modal -->
+    <div class="modal fade" id="multitimeframeModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-layers me-2"></i>
+                        Multi-Timeframe Consensus
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="multitimeframeContent">
+                        <div class="text-center py-5">
+                            <div class="loading-spinner mb-3"></div>
+                            <p class="text-muted">Analyzing across multiple timeframes...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        class FinWalkDashboard {
+            constructor() {
+                this.symbolInput = document.getElementById('symbolInput');
+                this.timeframeSelect = document.getElementById('timeframeSelect');
+                this.analyzeBtn = document.getElementById('analyzeBtn');
+                this.resultsSection = document.getElementById('resultsSection');
+                this.loadingState = document.getElementById('loadingState');
+                this.signalsContainer = document.getElementById('signalsContainer');
+                this.errorMessage = document.getElementById('errorMessage');
+                this.currentSymbol = document.getElementById('currentSymbol');
+                this.detailedView = false;
+                this.baseUrl = this.getBaseUrl();
+                this.currentTheme = localStorage.getItem('finwalk-theme') || 'dark';
+                this.currentUserId = 'user_' + Math.random().toString(36).substr(2, 9); // Generate unique user ID
+                
+                this.initializeEventListeners();
+                this.applyTheme(this.currentTheme);
+                
+                // Initialize notification system after DOM is ready
+                setTimeout(() => {
+                    this.initializeNotificationSystem();
+                }, 100);
+            }
+            
+            getBaseUrl() {
+                // Get the current page's base URL for API calls
+                const protocol = window.location.protocol;
+                const host = window.location.host;
+                return `${protocol}//${host}`;
+            }
+            
+            setTheme(theme) {
+                this.currentTheme = theme;
+                localStorage.setItem('finwalk-theme', theme);
+                this.applyTheme(theme);
+                this.updateThemeButtons();
+            }
+            
+            applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                
+                // Update Bootstrap theme attribute for compatibility
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-bs-theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                }
+            }
+            
+            updateThemeButtons() {
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`.theme-btn.${this.currentTheme}`)?.classList.add('active');
+            }
+            
+            toggleMobileMenu() {
+                const overlay = document.getElementById('mobileMenuOverlay');
+                const btn = document.getElementById('mobileMenuBtn');
+                
+                if (overlay.style.display === 'none' || !overlay.style.display) {
+                    overlay.style.display = 'flex';
+                    btn.innerHTML = '<i class="bi bi-x-lg"></i>';
+                    // Add backdrop click handler
+                    overlay.onclick = (e) => {
+                        if (e.target === overlay) {
+                            this.toggleMobileMenu();
+                        }
+                    };
+                } else {
+                    overlay.style.display = 'none';
+                    btn.innerHTML = '<i class="bi bi-list"></i>';
+                    overlay.onclick = null;
+                }
+            }
+
+            initializeEventListeners() {
+                // Enter key support
+                this.symbolInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.analyzeSymbol();
+                    }
+                });
+                
+                // Auto-analyze on timeframe change
+                this.timeframeSelect.addEventListener('change', () => {
+                    if (this.symbolInput.value.trim()) {
+                        this.analyzeSymbol();
+                    }
+                });
+            }
+
+            async analyzeSymbol() {
+                const symbol = this.symbolInput.value.trim().toUpperCase();
+                const timeframe = this.timeframeSelect.value;
+                
+                if (!symbol) {
+                    this.showError('Please enter a symbol');
+                    return;
+                }
+                
+                this.hideError();
+                this.showLoading();
+                this.resultsSection.style.display = 'block';
+                this.currentSymbol.textContent = symbol;
+                
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/signals?symbol=${symbol}&timeframe=${timeframe}`);
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Failed to fetch signals');
+                    }
+                    
+                    this.displaySignals(data);
+                } catch (error) {
+                    console.error('Error fetching signals:', error);
+                    this.showError(error.message);
+                } finally {
+                    this.hideLoading();
+                }
+            }
+
+            displaySignals(data) {
+                const container = this.signalsContainer;
+                
+                let html = `
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">
+                                    <i class="bi bi-clock me-1"></i>
+                                    ${data.timeframe.toUpperCase()} • ${data.data_points} data points
+                                </span>
+                                <span class="text-muted">
+                                    <i class="bi bi-calendar me-1"></i>
+                                    ${new Date(data.timestamp).toLocaleString()}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                `;
+                
+                // Convert detailed_strategies to signals array
+                const signals = Object.entries(data.detailed_strategies || {}).map(([key, strategy]) => ({
+                    strategy: strategy.strategy || key,
+                    signal: strategy.signal || 'HOLD',
+                    confidence: strategy.confidence || 0,
+                    details: strategy.indicators || {},
+                    risk_management: strategy.risk_management || null,
+                    support_resistance: strategy.support_resistance || null,
+                    trading_levels: strategy.trading_levels || null,
+                    square_root_analysis: strategy.square_root_analysis || null,
+                    trading_mood: strategy.trading_mood || null,
+                    advice: strategy.advice || [],
+                    // Enhanced for Hedge Fund Quantitative Strategy
+                    quantitative_models: strategy.quantitative_models || null,
+                    risk_metrics: strategy.risk_metrics || null,
+                    market_structure: strategy.market_structure || null,
+                    model_type: strategy.model_type || null,
+                    expected_return_annual: strategy.expected_return_annual || null,
+                    information_ratio: strategy.information_ratio || null,
+                    model_count: strategy.model_count || 0
+                }));
+                
+                signals.forEach((signal, index) => {
+                    const signalClass = signal.signal === 'BUY' ? 'signal-buy' : 
+                                       signal.signal === 'SELL' ? 'signal-sell' : 'signal-hold';
+                    
+                    const signalIcon = signal.signal === 'BUY' ? 'bi-arrow-up-circle' : 
+                                      signal.signal === 'SELL' ? 'bi-arrow-down-circle' : 'bi-pause-circle';
+                    
+                    const signalColor = signal.signal === 'BUY' ? 'text-success' : 
+                                       signal.signal === 'SELL' ? 'text-danger' : 'text-secondary';
+                    
+                    const cardClass = signal.signal === 'BUY' ? 'buy-signal' : 
+                                     signal.signal === 'SELL' ? 'sell-signal' : 'hold-signal';
+                    
+                    html += `
+                        <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
+                            <div class="finwalk-card signal-card ${cardClass} p-3 h-100">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="mb-0 fw-bold">${signal.strategy}</h6>
+                                    <span class="badge" style="background: var(--finwalk-primary)">${Math.round(signal.confidence * 100)}%</span>
+                                </div>
+                                
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi ${signalIcon} ${signalColor} fs-3 me-2"></i>
+                                    <div>
+                                        <div class="h4 mb-0 ${signalColor}">${signal.signal}</div>
+                                        <small class="text-muted">Confidence: ${signal.confidence}</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="confidence-bar-container mb-3">
+                                    <div class="progress" style="height: 8px; background: rgba(0,212,170,0.1);">
+                                        <div class="confidence-bar" style="width: ${signal.confidence * 100}%"></div>
+                                    </div>
+                                </div>
+                    `;
+                    
+                    if (this.detailedView && signal.details) {
+                        html += this.renderDetailedAnalysis(signal.details);
+                    }
+                    
+                    if (signal.risk_management) {
+                        html += this.renderRiskManagement(signal.risk_management);
+                    }
+                    
+                    // Special handling for Hedge Fund Quantitative strategy
+                    if (signal.strategy.includes('Hedge Fund') && signal.quantitative_models) {
+                        html += this.renderHedgeFundQuantModels(signal.quantitative_models);
+                    }
+                    
+                    if (signal.strategy.includes('Hedge Fund') && signal.risk_metrics) {
+                        html += this.renderAdvancedRiskMetrics(signal.risk_metrics);
+                    }
+                    
+                    if (signal.strategy.includes('Hedge Fund') && signal.market_structure) {
+                        html += this.renderMarketStructure(signal.market_structure);
+                    }
+                    
+                    // Special handling for Gann trading levels
+                    if (signal.strategy.includes('Gann') && signal.trading_levels) {
+                        html += this.renderGannTradingLevels(signal.trading_levels);
+                    }
+                    
+                    // Special handling for Gann square root analysis
+                    if (signal.strategy.includes('Gann') && signal.square_root_analysis) {
+                        html += this.renderSquareRootAnalysis(signal.square_root_analysis);
+                    }
+                    
+                    // Trading mood indicator for all strategies
+                    if (signal.trading_mood) {
+                        html += this.renderTradingMood(signal.trading_mood);
+                    }
+                    
+                    if (this.detailedView && signal.support_resistance) {
+                        html += this.renderSupportResistance(signal.support_resistance);
+                    }
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            renderDetailedAnalysis(details) {
+                let html = `
+                    <div class="detailed-analysis mt-3">
+                        <h6 class="text-primary mb-2">
+                            <i class="bi bi-graph-up me-1"></i>
+                            Technical Indicators
+                        </h6>
+                        <div class="row g-2">
+                `;
+                
+                if (details.rsi) {
+                    html += `
+                        <div class="col-6">
+                            <small class="text-muted d-block">RSI</small>
+                            <strong>${details.rsi}</strong>
+                        </div>
+                    `;
+                }
+                
+                if (details.macd) {
+                    html += `
+                        <div class="col-6">
+                            <small class="text-muted d-block">MACD</small>
+                            <strong>${details.macd}</strong>
+                        </div>
+                    `;
+                }
+                
+                if (details.trend) {
+                    html += `
+                        <div class="col-6">
+                            <small class="text-muted d-block">Trend</small>
+                            <strong>${details.trend}</strong>
+                        </div>
+                    `;
+                }
+                
+                if (details.bb_position) {
+                    html += `
+                        <div class="col-6">
+                            <small class="text-muted d-block">Bollinger Position</small>
+                            <strong>${details.bb_position}</strong>
+                        </div>
+                    `;
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+                
+                return html;
+            }
+
+            renderRiskManagement(riskMgmt) {
+                return `
+                    <div class="risk-management mt-3">
+                        <h6 class="text-warning mb-2">
+                            <i class="bi bi-shield-check me-1"></i>
+                            Risk Management
+                        </h6>
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <small class="text-muted d-block">Entry</small>
+                                <strong>$${riskMgmt.entry_price}</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-muted d-block">Stop Loss</small>
+                                <strong class="text-danger">$${riskMgmt.stop_loss}</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-muted d-block">Take Profit</small>
+                                <strong class="text-success">$${riskMgmt.take_profit}</strong>
+                            </div>
+                            ${riskMgmt.risk_reward_ratio ? `
+                            <div class="col-12 mt-2">
+                                <small class="text-muted d-block">Risk/Reward Ratio</small>
+                                <strong class="text-info">1:${riskMgmt.risk_reward_ratio}</strong>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderGannTradingLevels(tradingLevels) {
+                return `
+                    <div class="gann-trading-levels mt-3">
+                        <h6 class="text-warning mb-2">
+                            <i class="bi bi-bullseye me-1"></i>
+                            Gann Trading Levels
+                        </h6>
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <small class="text-muted d-block">Entry Point</small>
+                                <strong class="text-primary">$${tradingLevels.entry_point}</strong>
+                            </div>
+                            ${tradingLevels.stop_loss ? `
+                            <div class="col-4">
+                                <small class="text-muted d-block">Stop Loss</small>
+                                <strong class="text-danger">$${tradingLevels.stop_loss}</strong>
+                            </div>
+                            ` : ''}
+                            ${tradingLevels.take_profit ? `
+                            <div class="col-4">
+                                <small class="text-muted d-block">Take Profit</small>
+                                <strong class="text-success">$${tradingLevels.take_profit}</strong>
+                            </div>
+                            ` : ''}
+                            ${tradingLevels.risk_reward_ratio ? `
+                            <div class="col-12 mt-2">
+                                <small class="text-muted d-block">Risk/Reward Ratio</small>
+                                <strong class="text-info">1:${tradingLevels.risk_reward_ratio}</strong>
+                                <div class="progress mt-1" style="height: 6px;">
+                                    <div class="progress-bar bg-success" style="width: ${Math.min(tradingLevels.risk_reward_ratio * 20, 100)}%"></div>
+                                </div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderHedgeFundQuantModels(models) {
+                let html = `
+                    <div class="hedge-fund-models mt-3">
+                        <h6 class="text-primary mb-2">
+                            <i class="bi bi-cpu me-1"></i>
+                            Elite Quantitative Models (${Object.keys(models).length})
+                        </h6>
+                        <div class="row g-2">
+                `;
+                
+                // Display top 6 models
+                const topModels = Object.entries(models).slice(0, 6);
+                topModels.forEach(([name, model]) => {
+                    const signalColor = model.signal === 'BUY' ? 'text-success' : 
+                                       model.signal === 'SELL' ? 'text-danger' : 'text-secondary';
+                    const confidencePercent = Math.round((model.confidence || 0) * 100);
+                    
+                    html += `
+                        <div class="col-6 mb-2">
+                            <div class="card bg-dark border-secondary p-2">
+                                <small class="text-muted">${name.replace(/_/g, ' ').toUpperCase()}</small>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong class="${signalColor} fs-7">${model.signal}</strong>
+                                    <span class="badge bg-primary">${confidencePercent}%</span>
+                                </div>
+                                ${model.value !== undefined ? `<small class="text-info">Value: ${model.value}</small>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+                
+                return html;
+            }
+
+            renderAdvancedRiskMetrics(riskMetrics) {
+                return `
+                    <div class="risk-analytics mt-3">
+                        <h6 class="text-warning mb-2">
+                            <i class="bi bi-shield-exclamation me-1"></i>
+                            Risk Analytics
+                        </h6>
+                        <div class="row g-2">
+                            ${riskMetrics.enhanced_kelly ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">Kelly Criterion</small>
+                                <strong class="text-info">${(riskMetrics.enhanced_kelly * 100).toFixed(2)}%</strong>
+                            </div>
+                            ` : ''}
+                            ${riskMetrics.cvar_5pct ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">CVaR (5%)</small>
+                                <strong class="text-danger">${(riskMetrics.cvar_5pct * 100).toFixed(2)}%</strong>
+                            </div>
+                            ` : ''}
+                            ${riskMetrics.sharpe_forecast ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">Sharpe Forecast</small>
+                                <strong class="text-success">${riskMetrics.sharpe_forecast}</strong>
+                            </div>
+                            ` : ''}
+                            ${riskMetrics.max_drawdown ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">Max Drawdown</small>
+                                <strong class="text-warning">${(riskMetrics.max_drawdown * 100).toFixed(2)}%</strong>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderMarketStructure(marketStructure) {
+                return `
+                    <div class="market-structure mt-3">
+                        <h6 class="text-info mb-2">
+                            <i class="bi bi-diagram-3 me-1"></i>
+                            Market Structure
+                        </h6>
+                        <div class="row g-2">
+                            ${marketStructure.current_regime ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">Current Regime</small>
+                                <strong class="text-primary">${marketStructure.current_regime.toUpperCase()}</strong>
+                            </div>
+                            ` : ''}
+                            ${marketStructure.liquidity_score !== undefined ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">Liquidity Score</small>
+                                <strong class="text-success">${(marketStructure.liquidity_score * 100).toFixed(1)}%</strong>
+                            </div>
+                            ` : ''}
+                            ${marketStructure.volatility_cluster !== undefined ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">Vol Clustering</small>
+                                <strong class="${marketStructure.volatility_cluster ? 'text-warning' : 'text-muted'}">${marketStructure.volatility_cluster ? 'YES' : 'NO'}</strong>
+                            </div>
+                            ` : ''}
+                            ${marketStructure.order_flow_toxicity !== undefined ? `
+                            <div class="col-6">
+                                <small class="text-muted d-block">Flow Toxicity</small>
+                                <strong class="text-danger">${(marketStructure.order_flow_toxicity * 100).toFixed(3)}%</strong>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderSquareRootAnalysis(squareRootData) {
+                if (!squareRootData) return '';
+                
+                return `
+                    <div class="square-root-analysis mt-3">
+                        <h6 class="text-info mb-2">
+                            <i class="bi bi-calculator me-1"></i>
+                            Square Root Analysis
+                        </h6>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <small class="text-muted d-block">Current √Price</small>
+                                <strong class="text-info">${squareRootData.current_sqrt}</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Total Levels</small>
+                                <strong class="text-info">${squareRootData.total_levels}</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Level Density</small>
+                                <strong class="text-info">${squareRootData.level_density}</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block">Primary Levels</small>
+                                <strong class="text-info">${squareRootData.primary_levels_count}</strong>
+                            </div>
+                            ${squareRootData.closest_support && squareRootData.closest_support.length > 0 ? `
+                            <div class="col-12 mt-2">
+                                <small class="text-muted d-block">√ Support Levels</small>
+                                <div class="d-flex flex-wrap gap-1">
+                                    ${squareRootData.closest_support.map(level => 
+                                        `<span class="badge bg-success">$${level}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
+                            ${squareRootData.closest_resistance && squareRootData.closest_resistance.length > 0 ? `
+                            <div class="col-12 mt-2">
+                                <small class="text-muted d-block">√ Resistance Levels</small>
+                                <div class="d-flex flex-wrap gap-1">
+                                    ${squareRootData.closest_resistance.map(level => 
+                                        `<span class="badge bg-danger">$${level}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                            ` : ''}
+                            <div class="col-12 mt-2">
+                                <small class="text-muted d-block">Level Distribution</small>
+                                <div class="row g-1">
+                                    <div class="col-3">
+                                        <small class="text-muted">Micro: ${squareRootData.micro_levels_count}</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <small class="text-muted">Primary: ${squareRootData.primary_levels_count}</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <small class="text-muted">Extended: ${squareRootData.extended_levels_count}</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <small class="text-muted">Infinite: ${squareRootData.infinite_levels_count}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderTradingMood(tradingMood) {
+                if (!tradingMood) return '';
+                
+                return `
+                    <div class="trading-mood-indicator mt-3">
+                        <h6 class="text-primary mb-2">
+                            <i class="bi bi-emoji-smile me-1"></i>
+                            Trading Mood
+                        </h6>
+                        <div class="mood-display text-center p-3 rounded border" style="background: linear-gradient(135deg, ${tradingMood.color}10, ${tradingMood.color}20);">
+                            <div class="mood-emoji mb-2" style="font-size: 3rem;">${tradingMood.emoji}</div>
+                            <div class="mood-text mb-2">
+                                <strong style="color: ${tradingMood.color};">${tradingMood.mood}</strong>
+                            </div>
+                            <div class="mood-description">
+                                <small class="text-muted">${tradingMood.description}</small>
+                            </div>
+                            <div class="mood-score mt-2">
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar" 
+                                         style="width: ${Math.abs(tradingMood.score) * 100}%; background-color: ${tradingMood.color};">
+                                    </div>
+                                </div>
+                                <small class="text-muted">Score: ${tradingMood.score.toFixed(2)}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderSupportResistance(sr) {
+                let html = `
+                    <div class="support-resistance mt-3">
+                        <h6 class="text-info mb-2">
+                            <i class="bi bi-bar-chart-line me-1"></i>
+                            Key Levels
+                        </h6>
+                        <div class="row g-2">
+                `;
+                
+                if (sr.resistance_levels && sr.resistance_levels.length > 0) {
+                    html += `
+                        <div class="col-6">
+                            <small class="text-muted d-block">Resistance</small>
+                            <strong class="text-danger">$${sr.resistance_levels[0].toFixed(2)}</strong>
+                        </div>
+                    `;
+                }
+                
+                if (sr.support_levels && sr.support_levels.length > 0) {
+                    html += `
+                        <div class="col-6">
+                            <small class="text-muted d-block">Support</small>
+                            <strong class="text-success">$${sr.support_levels[0].toFixed(2)}</strong>
+                        </div>
+                    `;
+                }
+                
+                if (sr.pivot) {
+                    html += `
+                        <div class="col-12 mt-2">
+                            <small class="text-muted d-block">Daily Pivot</small>
+                            <strong class="text-info">$${sr.pivot.toFixed(2)}</strong>
+                        </div>
+                    `;
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+                
+                return html;
+            }
+
+            async showInstrumentsModal() {
+                const modal = new bootstrap.Modal(document.getElementById('instrumentsModal'));
+                modal.show();
+                
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/instruments`);
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Failed to fetch instruments');
+                    }
+                    
+                    this.displayInstruments(data.instruments);
+                } catch (error) {
+                    document.getElementById('instrumentsContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Error: ${error.message}
+                        </div>
+                    `;
+                }
+            }
+
+            displayInstruments(instruments) {
+                const container = document.getElementById('instrumentsContent');
+                
+                let html = '<div class="row">';
+                
+                for (const [mainCategory, categories] of Object.entries(instruments)) {
+                    html += `
+                        <div class="col-12 mb-4">
+                            <h4 class="mb-3">
+                                <i class="bi bi-${this.getCategoryIcon(mainCategory)} me-2"></i>
+                                ${mainCategory}
+                            </h4>
+                            <div class="row">
+                    `;
+                    
+                    for (const [category, items] of Object.entries(categories)) {
+                        html += `
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="finwalk-card p-3">
+                                    <h6 class="text-primary mb-2">${category}</h6>
+                                    <div class="instrument-list">
+                        `;
+                        
+                        items.forEach(item => {
+                            html += `
+                                <div class="instrument-item d-flex justify-content-between align-items-center py-1">
+                                    <span>${item.symbol}</span>
+                                    <button class="btn btn-sm btn-outline-finwalk" 
+                                            onclick="dashboard.selectInstrument('${item.symbol}')">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </div>
+                            `;
+                        });
+                        
+                        html += `
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            getCategoryIcon(category) {
+                const icons = {
+                    'US Stocks': 'building',
+                    'Commodities': 'gem',
+                    'Cryptocurrencies': 'currency-bitcoin',
+                    'Forex': 'currency-exchange'
+                };
+                return icons[category] || 'graph-up';
+            }
+
+            selectInstrument(symbol) {
+                this.symbolInput.value = symbol;
+                // Hide any open modal
+                const instrumentsModal = bootstrap.Modal.getInstance(document.getElementById('instrumentsModal'));
+                const bestTradesModal = bootstrap.Modal.getInstance(document.getElementById('bestTradesModal'));
+                if (instrumentsModal) instrumentsModal.hide();
+                if (bestTradesModal) bestTradesModal.hide();
+                this.analyzeSymbol();
+            }
+
+            async showBestTradesModal() {
+                const modal = new bootstrap.Modal(document.getElementById('bestTradesModal'));
+                modal.show();
+                
+                try {
+                    document.getElementById('bestTradesContent').innerHTML = `
+                        <div class="text-center py-5">
+                            <div class="loading-spinner mb-3"></div>
+                            <p class="text-muted">Analyzing all instruments across all timeframes...</p>
+                            <small class="text-muted">This may take a moment...</small>
+                        </div>
+                    `;
+                    
+                    const response = await fetch(`${this.baseUrl}/api/best-trades-today`);
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Failed to fetch best trades');
+                    }
+                    
+                    this.displayBestTrades(data);
+                } catch (error) {
+                    document.getElementById('bestTradesContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Error: ${error.message}
+                        </div>
+                    `;
+                }
+            }
+
+            displayBestTrades(data) {
+                const container = document.getElementById('bestTradesContent');
+                const bestTrades = data;
+                const marketOverview = data.market_overview;
+                
+                let html = `
+                    <!-- Market Overview -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-globe me-2"></i>
+                                    Market Overview
+                                </h5>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h3 class="text-success">${marketOverview.bullish_count}</h3>
+                                            <small class="text-muted">Bullish Instruments</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h3 class="text-danger">${marketOverview.bearish_count}</h3>
+                                            <small class="text-muted">Bearish Instruments</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h3 class="text-info">${marketOverview.consensus_rate}%</h3>
+                                            <small class="text-muted">Consensus Rate</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <h3 class="text-warning">${marketOverview.neutral_count}</h3>
+                                            <small class="text-muted">Neutral</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Best BUY Opportunities -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-success mb-3">
+                                <i class="bi bi-arrow-up-circle-fill me-2"></i>
+                                Top BUY Opportunities (${bestTrades.buy_opportunities.length})
+                            </h4>
+                            <div class="row">
+                `;
+                
+                bestTrades.buy_opportunities.slice(0, 6).forEach(trade => {
+                    html += `
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="card bg-success bg-opacity-10 border-success">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 text-success">${trade.symbol}</h6>
+                                    <span class="badge bg-success">${Math.round(trade.confidence)}%</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted">Signal Strength</small>
+                                        <div class="progress mb-2" style="height: 8px;">
+                                            <div class="progress-bar bg-success" style="width: ${Math.min(trade.confidence, 100)}%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <small class="text-muted">Timeframes</small>
+                                            <div class="fw-bold">${trade.timeframe_agreement}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted">Strategies</small>
+                                            <div class="fw-bold">${trade.strategy_consensus}</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-outline-success btn-sm w-100 mt-2" 
+                                            onclick="dashboard.selectInstrument('${trade.symbol}')">
+                                        Analyze ${trade.symbol}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Best SELL Opportunities -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-danger mb-3">
+                                <i class="bi bi-arrow-down-circle-fill me-2"></i>
+                                Top SELL Opportunities (${bestTrades.sell_opportunities.length})
+                            </h4>
+                            <div class="row">
+                `;
+                
+                bestTrades.sell_opportunities.slice(0, 6).forEach(trade => {
+                    html += `
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="card bg-danger bg-opacity-10 border-danger">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 text-danger">${trade.symbol}</h6>
+                                    <span class="badge bg-danger">${Math.round(trade.confidence)}%</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted">Signal Strength</small>
+                                        <div class="progress mb-2" style="height: 8px;">
+                                            <div class="progress-bar bg-danger" style="width: ${Math.min(trade.confidence, 100)}%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <small class="text-muted">Timeframes</small>
+                                            <div class="fw-bold">${trade.timeframe_agreement}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted">Strategies</small>
+                                            <div class="fw-bold">${trade.strategy_consensus}</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-outline-danger btn-sm w-100 mt-2" 
+                                            onclick="dashboard.selectInstrument('${trade.symbol}')">
+                                        Analyze ${trade.symbol}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Details -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-secondary">
+                                <h6 class="mb-2">Analysis Details</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">Total Instruments Analyzed: <strong>${bestTrades.analysis_summary.total_instruments_analyzed}</strong></small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small class="text-muted">Consensus Trades Found: <strong>${bestTrades.buy_opportunities.length + bestTrades.sell_opportunities.length}</strong></small>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">Timeframes: <strong>${bestTrades.analysis_summary.timeframes_analyzed.join(', ')}</strong></small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small class="text-muted">Analysis Time: <strong>${bestTrades.analysis_summary.analysis_time}</strong></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML = html;
+            }
+
+            async showMultitimeframeModal() {
+                const modal = new bootstrap.Modal(document.getElementById('multitimeframeModal'));
+                modal.show();
+                
+                const symbol = this.symbolInput.value.trim().toUpperCase() || 'AAPL';
+                const timeframes = ['1mo', '1wk', '1d', '4h', '1h', '15m', '5m', '1m'];
+                
+                try {
+                    const container = document.getElementById('multitimeframeContent');
+                    container.innerHTML = `
+                        <div class="text-center py-5">
+                            <div class="loading-spinner mb-3"></div>
+                            <p class="text-muted">Advanced Multi-Timeframe Analysis for ${symbol}</p>
+                            <small class="text-muted">Analyzing ${timeframes.length} timeframes with correlation matrix</small>
+                        </div>
+                    `;
+                    
+                    // Fetch data for all timeframes in parallel
+                    const analysisPromises = timeframes.map(async tf => {
+                        try {
+                            const response = await fetch(`${this.baseUrl}/api/signals?symbol=${symbol}&timeframe=${tf}`);
+                            const data = await response.json();
+                            return { timeframe: tf, data, success: true };
+                        } catch (error) {
+                            return { timeframe: tf, error: error.message, success: false };
+                        }
+                    });
+                    
+                    const results = await Promise.all(analysisPromises);
+                    this.displayAdvancedMultitimeframeAnalysis(symbol, results);
+                    
+                } catch (error) {
+                    document.getElementById('multitimeframeContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Error: ${error.message}
+                        </div>
+                    `;
+                }
+            }
+
+            displayAdvancedMultitimeframeAnalysis(symbol, results) {
+                const container = document.getElementById('multitimeframeContent');
+                
+                // Calculate consensus across timeframes
+                const validResults = results.filter(r => r.success && r.data?.detailed_strategies);
+                const totalTimeframes = validResults.length;
+                
+                let buySignals = 0, sellSignals = 0, holdSignals = 0;
+                let totalConfidence = 0;
+                let strategyConsensus = {};
+                
+                validResults.forEach(result => {
+                    const strategies = result.data.detailed_strategies;
+                    Object.values(strategies).forEach(strategy => {
+                        if (strategy.signal === 'BUY') buySignals++;
+                        else if (strategy.signal === 'SELL') sellSignals++;
+                        else holdSignals++;
+                        
+                        totalConfidence += strategy.confidence || 0;
+                        
+                        const stratName = Object.keys(strategies).find(k => strategies[k] === strategy);
+                        if (!strategyConsensus[stratName]) {
+                            strategyConsensus[stratName] = { buy: 0, sell: 0, hold: 0 };
+                        }
+                        strategyConsensus[stratName][strategy.signal.toLowerCase()]++;
+                    });
+                });
+                
+                const totalSignals = buySignals + sellSignals + holdSignals;
+                const buyPercentage = Math.round((buySignals / totalSignals) * 100) || 0;
+                const sellPercentage = Math.round((sellSignals / totalSignals) * 100) || 0;
+                const holdPercentage = Math.round((holdSignals / totalSignals) * 100) || 0;
+                const avgConfidence = Math.round((totalConfidence / totalSignals) * 100) || 0;
+                
+                const overallSignal = buyPercentage > sellPercentage ? 
+                    (buyPercentage > holdPercentage ? 'BUY' : 'HOLD') :
+                    (sellPercentage > holdPercentage ? 'SELL' : 'HOLD');
+                
+                const timeframeNames = {
+                    '1mo': 'Monthly',
+                    '1wk': 'Weekly', 
+                    '1d': 'Daily',
+                    '4h': '4-Hour',
+                    '1h': 'Hourly',
+                    '15m': '15-Min',
+                    '5m': '5-Min',
+                    '1m': '1-Min'
+                };
+                
+                let html = `
+                    <!-- Overall Consensus -->
+                    <div class="consensus-card mb-4">
+                        <div class="text-center">
+                            <h3 class="text-${this.getConsensusColor(overallSignal)} mb-3">
+                                <i class="bi bi-${this.getSignalIcon(overallSignal)} me-2"></i>
+                                Multi-Timeframe Consensus: ${overallSignal}
+                            </h3>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-success">
+                                        <h4>${buyPercentage}%</h4>
+                                        <small>Buy Signals</small>
+                                        <div class="progress mt-2" style="height: 8px;">
+                                            <div class="progress-bar bg-success" style="width: ${buyPercentage}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-danger">
+                                        <h4>${sellPercentage}%</h4>
+                                        <small>Sell Signals</small>
+                                        <div class="progress mt-2" style="height: 8px;">
+                                            <div class="progress-bar bg-danger" style="width: ${sellPercentage}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-secondary">
+                                        <h4>${holdPercentage}%</h4>
+                                        <small>Hold Signals</small>
+                                        <div class="progress mt-2" style="height: 8px;">
+                                            <div class="progress-bar bg-secondary" style="width: ${holdPercentage}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-info">
+                                        <h4>${avgConfidence}%</h4>
+                                        <small>Avg Confidence</small>
+                                        <div class="progress mt-2" style="height: 8px;">
+                                            <div class="progress-bar bg-info" style="width: ${avgConfidence}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeframe Grid -->
+                    <div class="row mb-4">
+                `;
+                
+                results.forEach(result => {
+                    const tfName = timeframeNames[result.timeframe] || result.timeframe;
+                    
+                    if (result.success && result.data?.detailed_strategies) {
+                        const strategies = result.data.detailed_strategies;
+                        const strategyNames = Object.keys(strategies);
+                        const signals = Object.values(strategies);
+                        
+                        const buyCount = signals.filter(s => s.signal === 'BUY').length;
+                        const sellCount = signals.filter(s => s.signal === 'SELL').length;
+                        const holdCount = signals.filter(s => s.signal === 'HOLD').length;
+                        const avgConf = Math.round(signals.reduce((sum, s) => sum + (s.confidence || 0), 0) / signals.length * 100);
+                        
+                        const dominantSignal = buyCount > sellCount ? 
+                            (buyCount > holdCount ? 'BUY' : 'HOLD') :
+                            (sellCount > holdCount ? 'SELL' : 'HOLD');
+                        
+                        html += `
+                            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                <div class="card bg-dark border-${this.getConsensusColor(dominantSignal)}">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">${tfName}</h6>
+                                        <span class="badge bg-${this.getConsensusColor(dominantSignal)}">${dominantSignal}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <small class="text-muted">Confidence: ${avgConf}%</small>
+                                            <div class="progress mb-2" style="height: 6px;">
+                                                <div class="progress-bar bg-${this.getConsensusColor(dominantSignal)}" style="width: ${avgConf}%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row g-1">
+                                            <div class="col-4 text-center">
+                                                <div class="text-success">${buyCount}</div>
+                                                <small class="text-muted">BUY</small>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="text-danger">${sellCount}</div>
+                                                <small class="text-muted">SELL</small>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="text-secondary">${holdCount}</div>
+                                                <small class="text-muted">HOLD</small>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <small class="text-muted">${strategyNames.length} strategies</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        html += `
+                            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                <div class="card bg-dark border-secondary">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">${tfName}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-muted">
+                                            <i class="bi bi-exclamation-triangle me-2"></i>
+                                            ${result.error || 'No data available'}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                html += `
+                    </div>
+
+                    <!-- Strategy Consensus Matrix -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card bg-dark border-info">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="bi bi-grid-3x3 me-2"></i>
+                                        Strategy Consensus Matrix
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-dark table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Strategy</th>
+                                                    <th>BUY</th>
+                                                    <th>SELL</th>
+                                                    <th>HOLD</th>
+                                                    <th>Consensus</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                `;
+                
+                Object.entries(strategyConsensus).forEach(([strategy, counts]) => {
+                    const total = counts.buy + counts.sell + counts.hold;
+                    const buyPct = Math.round((counts.buy / total) * 100);
+                    const sellPct = Math.round((counts.sell / total) * 100);
+                    const holdPct = Math.round((counts.hold / total) * 100);
+                    
+                    const dominant = buyPct > sellPct ? (buyPct > holdPct ? 'BUY' : 'HOLD') : (sellPct > holdPct ? 'SELL' : 'HOLD');
+                    
+                    html += `
+                        <tr>
+                            <td class="fw-bold">${strategy}</td>
+                            <td><span class="badge bg-success">${counts.buy} (${buyPct}%)</span></td>
+                            <td><span class="badge bg-danger">${counts.sell} (${sellPct}%)</span></td>
+                            <td><span class="badge bg-secondary">${counts.hold} (${holdPct}%)</span></td>
+                            <td><span class="badge bg-${this.getConsensusColor(dominant)}">${dominant}</span></td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Summary -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <h6 class="mb-2">Analysis Summary</h6>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <strong>Symbol:</strong> ${symbol}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Timeframes:</strong> ${totalTimeframes}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Total Signals:</strong> ${totalSignals}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Consensus:</strong> ${overallSignal} (${avgConfidence}%)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML = html;
+            }
+
+            displayMultitimeframeAnalysis(data) {
+                const container = document.getElementById('multitimeframeContent');
+                const consensus = data.consensus;
+                
+                let html = `
+                    <div class="consensus-card">
+                        <div class="text-center">
+                            <h3 class="text-${this.getConsensusColor(consensus.overall_signal)} mb-3">
+                                <i class="bi bi-${this.getSignalIcon(consensus.overall_signal)} me-2"></i>
+                                Overall Consensus: ${consensus.overall_signal}
+                            </h3>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-success">
+                                        <h4>${consensus.buy_percentage}%</h4>
+                                        <small>Buy Signals</small>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-danger">
+                                        <h4>${consensus.sell_percentage}%</h4>
+                                        <small>Sell Signals</small>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-secondary">
+                                        <h4>${consensus.hold_percentage}%</h4>
+                                        <small>Hold Signals</small>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-info">
+                                        <h4>${consensus.confidence}</h4>
+                                        <small>Avg Confidence</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                `;
+                
+                const timeframeNames = {
+                    '15m': '15 Minutes',
+                    '1h': '1 Hour',
+                    '4h': '4 Hours',
+                    '1d': 'Daily',
+                    '1wk': 'Weekly'
+                };
+                
+                for (const [tf, tfData] of Object.entries(data.timeframes)) {
+                    const tfName = timeframeNames[tf] || tf;
+                    
+                    html += `
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="finwalk-card p-3 h-100">
+                                <h6 class="mb-3">
+                                    <i class="bi bi-clock me-1"></i>
+                                    ${tfName}
+                                    ${tfData.data_points ? `<small class="text-muted ms-1">(${tfData.data_points} pts)</small>` : ''}
+                                </h6>
+                    `;
+                    
+                    if (tfData.error) {
+                        html += `
+                            <div class="alert alert-warning small">
+                                <i class="bi bi-exclamation-triangle me-1"></i>
+                                ${tfData.error}
+                            </div>
+                        `;
+                    } else {
+                        html += `
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small class="text-muted">Smart Money Concepts</small>
+                                    <span class="badge bg-${this.getSignalColor(tfData.smc.signal)}">${tfData.smc.signal}</span>
+                                </div>
+                                <div class="progress mb-1" style="height: 6px;">
+                                    <div class="progress-bar bg-${this.getSignalColor(tfData.smc.signal)}" 
+                                         style="width: ${tfData.smc.confidence * 100}%"></div>
+                                </div>
+                                <small class="text-muted">Confidence: ${Math.round(tfData.smc.confidence * 100)}%</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small class="text-muted">SMA Crossover</small>
+                                    <span class="badge bg-${this.getSignalColor(tfData.sma.signal)}">${tfData.sma.signal}</span>
+                                </div>
+                                <div class="progress mb-1" style="height: 6px;">
+                                    <div class="progress-bar bg-${this.getSignalColor(tfData.sma.signal)}" 
+                                         style="width: ${tfData.sma.confidence * 100}%"></div>
+                                </div>
+                                <small class="text-muted">Confidence: ${Math.round(tfData.sma.confidence * 100)}%</small>
+                            </div>
+                        `;
+                    }
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+
+            async explainSignals() {
+                const symbol = this.symbolInput.value.trim().toUpperCase();
+                const timeframe = this.timeframeSelect.value;
+                
+                const explanationDiv = document.getElementById('aiExplanation');
+                const contentDiv = document.getElementById('explanationContent');
+                
+                explanationDiv.style.display = 'block';
+                contentDiv.innerHTML = `
+                    <div class="text-center py-3">
+                        <div class="loading-spinner mb-2"></div>
+                        <p class="text-muted">AI is analyzing the signals...</p>
+                    </div>
+                `;
+                
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/explain?symbol=${symbol}&timeframe=${timeframe}`);
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Failed to get AI explanation');
+                    }
+                    
+                    contentDiv.innerHTML = `
+                        <div class="explanation-text">
+                            ${data.explanation.replace(/\n/g, '<br>')}
+                        </div>
+                    `;
+                } catch (error) {
+                    contentDiv.innerHTML = `
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            ${error.message}
+                        </div>
+                    `;
+                }
+            }
+
+            toggleDetailedView() {
+                this.detailedView = !this.detailedView;
+                document.getElementById('detailToggleText').textContent = 
+                    this.detailedView ? 'Simple View' : 'Detailed View';
+                
+                if (this.symbolInput.value.trim()) {
+                    this.analyzeSymbol();
+                }
+            }
+
+            getConsensusColor(signal) {
+                switch(signal) {
+                    case 'BUY': return 'success';
+                    case 'SELL': return 'danger';
+                    case 'HOLD': return 'secondary';
+                    default: return 'warning';
+                }
+            }
+
+            getSignalColor(signal) {
+                switch(signal) {
+                    case 'BUY': return 'success';
+                    case 'SELL': return 'danger';
+                    case 'HOLD': return 'secondary';
+                    default: return 'warning';
+                }
+            }
+
+            getSignalIcon(signal) {
+                switch(signal) {
+                    case 'BUY': return 'arrow-up-circle';
+                    case 'SELL': return 'arrow-down-circle';
+                    case 'HOLD': return 'pause-circle';
+                    default: return 'question-circle';
+                }
+            }
+
+            showLoading() {
+                this.loadingState.style.display = 'block';
+                this.signalsContainer.innerHTML = '';
+                this.analyzeBtn.innerHTML = '<div class="loading-spinner me-2"></div>Analyzing...';
+                this.analyzeBtn.disabled = true;
+            }
+
+            hideLoading() {
+                this.loadingState.style.display = 'none';
+                this.analyzeBtn.innerHTML = '<i class="bi bi-activity me-1"></i>Analyze';
+                this.analyzeBtn.disabled = false;
+            }
+
+            showError(message) {
+                document.getElementById('errorText').textContent = message;
+                this.errorMessage.style.display = 'block';
+                this.resultsSection.style.display = 'none';
+            }
+
+            hideError() {
+                this.errorMessage.style.display = 'none';
+            }
+
+            // Notification System Methods
+            initializeNotificationSystem() {
+                // Initialize alert form
+                const alertForm = document.getElementById('alertForm');
+                if (alertForm) {
+                    alertForm.addEventListener('submit', this.handleAlertSubmit.bind(this));
+                }
+                
+                // Load existing alerts and notifications
+                this.loadUserAlerts();
+                this.loadUserNotifications();
+            }
+
+            showNotificationPanel() {
+                const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+                modal.show();
+                
+                // Refresh data when modal opens
+                this.refreshAlerts();
+                this.loadUserNotifications();
+            }
+
+            async handleAlertSubmit(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const conditions = {};
+                
+                // Collect checkbox conditions
+                if (document.getElementById('alertBuySignal').checked) {
+                    conditions.signal_buy = true;
+                }
+                if (document.getElementById('alertSellSignal').checked) {
+                    conditions.signal_sell = true;
+                }
+                if (document.getElementById('alertMacdBull').checked) {
+                    conditions.macd_bullish_cross = true;
+                }
+                if (document.getElementById('alertMacdBear').checked) {
+                    conditions.macd_bearish_cross = true;
+                }
+                
+                // Collect numeric conditions
+                const priceAbove = document.getElementById('alertPriceAbove').value;
+                const priceBelow = document.getElementById('alertPriceBelow').value;
+                const rsiAbove = document.getElementById('alertRsiAbove').value;
+                const rsiBelow = document.getElementById('alertRsiBelow').value;
+                
+                if (priceAbove) conditions.price_above = parseFloat(priceAbove);
+                if (priceBelow) conditions.price_below = parseFloat(priceBelow);
+                if (rsiAbove) conditions.rsi_above = parseFloat(rsiAbove);
+                if (rsiBelow) conditions.rsi_below = parseFloat(rsiBelow);
+                
+                const alertData = {
+                    user_id: this.currentUserId,
+                    symbol: document.getElementById('alertSymbol').value.toUpperCase(),
+                    timeframe: document.getElementById('alertTimeframe').value,
+                    conditions: conditions
+                };
+                
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/alerts`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(alertData)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        // Show success message
+                        this.showToast('Success', 'Alert created successfully!', 'success');
+                        
+                        // Reset form
+                        event.target.reset();
+                        
+                        // Refresh alerts display
+                        this.refreshAlerts();
+                    } else {
+                        this.showToast('Error', result.error || 'Failed to create alert', 'error');
+                    }
+                } catch (error) {
+                    this.showToast('Error', 'Failed to create alert: ' + error.message, 'error');
+                }
+            }
+
+            async loadUserAlerts() {
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/alerts/${this.currentUserId}`);
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        this.displayAlerts(data.alerts);
+                    }
+                } catch (error) {
+                    console.error('Failed to load alerts:', error);
+                }
+            }
+
+            async refreshAlerts() {
+                await this.loadUserAlerts();
+            }
+
+            displayAlerts(alerts) {
+                const container = document.getElementById('activeAlerts');
+                
+                if (!alerts || alerts.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-3">
+                            <i class="bi bi-bell-slash text-muted" style="font-size: 2rem;"></i>
+                            <p class="text-muted mt-2">No active alerts</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                alerts.forEach(alert => {
+                    const conditionsText = Object.entries(alert.conditions)
+                        .filter(([key, value]) => value === true || (typeof value === 'number' && value > 0))
+                        .map(([key, value]) => {
+                            switch(key) {
+                                case 'signal_buy': return 'BUY signal';
+                                case 'signal_sell': return 'SELL signal';
+                                case 'macd_bullish_cross': return 'MACD bullish cross';
+                                case 'macd_bearish_cross': return 'MACD bearish cross';
+                                case 'price_above': return `Price > $${value}`;
+                                case 'price_below': return `Price < $${value}`;
+                                case 'rsi_above': return `RSI > ${value}`;
+                                case 'rsi_below': return `RSI < ${value}`;
+                                default: return key;
+                            }
+                        })
+                        .join(', ');
+                    
+                    html += `
+                        <div class="alert alert-dark border-finwalk mb-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="mb-1">
+                                        <i class="bi bi-graph-up-arrow me-1"></i>
+                                        ${alert.symbol} (${alert.timeframe})
+                                    </h6>
+                                    <p class="mb-1 text-muted small">${conditionsText}</p>
+                                    <small class="text-muted">
+                                        Created: ${new Date(alert.created_at).toLocaleString()}
+                                        ${alert.triggered_count > 0 ? `| Triggered: ${alert.triggered_count} times` : ''}
+                                    </small>
+                                </div>
+                                <button class="btn btn-outline-danger btn-sm" onclick="dashboard.deleteAlert('${alert.id}')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            }
+
+            async deleteAlert(alertId) {
+                if (!confirm('Are you sure you want to delete this alert?')) {
+                    return;
+                }
+                
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/alerts/${alertId}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        this.showToast('Success', 'Alert deleted successfully', 'success');
+                        this.refreshAlerts();
+                    } else {
+                        this.showToast('Error', result.error || 'Failed to delete alert', 'error');
+                    }
+                } catch (error) {
+                    this.showToast('Error', 'Failed to delete alert: ' + error.message, 'error');
+                }
+            }
+
+            async loadUserNotifications() {
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/notifications/${this.currentUserId}`);
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        this.displayNotifications(data.notifications);
+                    }
+                } catch (error) {
+                    console.error('Failed to load notifications:', error);
+                }
+            }
+
+            displayNotifications(notifications) {
+                const container = document.getElementById('notificationHistory');
+                
+                if (!notifications || notifications.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-3">
+                            <i class="bi bi-inbox text-muted" style="font-size: 2rem;"></i>
+                            <p class="text-muted mt-2">No notifications yet</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                notifications.slice(0, 10).forEach(notification => {
+                    const isAlert = notification.type === 'TRADING_ALERT';
+                    const icon = isAlert ? 'bi-bell-fill' : 'bi-info-circle';
+                    const color = isAlert ? 'text-warning' : 'text-info';
+                    
+                    html += `
+                        <div class="alert alert-dark border-secondary mb-2">
+                            <div class="d-flex align-items-start">
+                                <i class="bi ${icon} ${color} me-2 mt-1"></i>
+                                <div class="flex-grow-1">
+                                    <div class="small">${notification.message.replace(/\n/g, '<br>')}</div>
+                                    <small class="text-muted">${new Date(notification.timestamp).toLocaleString()}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            }
+
+            async checkAllAlerts() {
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/check-alerts`, {
+                        method: 'POST'
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        const triggeredCount = result.total_triggered;
+                        if (triggeredCount > 0) {
+                            this.showToast('Alerts Triggered', `${triggeredCount} alerts were triggered!`, 'success');
+                        } else {
+                            this.showToast('No Alerts', 'No alerts were triggered at this time', 'info');
+                        }
+                        
+                        // Refresh displays
+                        this.refreshAlerts();
+                        this.loadUserNotifications();
+                    } else {
+                        this.showToast('Error', result.error || 'Failed to check alerts', 'error');
+                    }
+                } catch (error) {
+                    this.showToast('Error', 'Failed to check alerts: ' + error.message, 'error');
+                }
+            }
+
+            showToast(title, message, type = 'info') {
+                // Create toast notification
+                const toastContainer = document.getElementById('toastContainer') || this.createToastContainer();
+                
+                const toastId = 'toast_' + Date.now();
+                const toastColor = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-info';
+                
+                const toastHtml = `
+                    <div id="${toastId}" class="toast ${toastColor} text-white" role="alert">
+                        <div class="toast-header ${toastColor} text-white border-0">
+                            <strong class="me-auto">${title}</strong>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                        </div>
+                        <div class="toast-body">
+                            ${message}
+                        </div>
+                    </div>
+                `;
+                
+                toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+                
+                const toastElement = document.getElementById(toastId);
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+                
+                // Remove toast after it's hidden
+                toastElement.addEventListener('hidden.bs.toast', () => {
+                    toastElement.remove();
+                });
+            }
+
+            createToastContainer() {
+                const container = document.createElement('div');
+                container.id = 'toastContainer';
+                container.className = 'toast-container position-fixed top-0 end-0 p-3';
+                container.style.zIndex = '1055';
+                document.body.appendChild(container);
+                return container;
+            }
+
+            // Risk Dashboard Methods
+            async showRiskDashboard() {
+                const symbol = document.getElementById('symbolInput').value || 'AAPL';
+                const timeframe = document.getElementById('timeframeSelect').value;
+                
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById('riskDashboardModal'));
+                modal.show();
+                
+                // Load risk data
+                await this.loadRiskDashboard(symbol, timeframe);
+            }
+
+            async loadRiskDashboard(symbol, timeframe = '1d') {
+                try {
+                    const response = await fetch(`/api/risk-dashboard/${symbol}?timeframe=${timeframe}`);
+                    const riskData = await response.json();
+                    
+                    if (response.ok) {
+                        this.renderRiskDashboard(riskData);
+                    } else {
+                        document.getElementById('riskDashboardContent').innerHTML = `
+                            <div class="alert alert-danger">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                Error loading risk data: ${riskData.error || 'Unknown error'}
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    document.getElementById('riskDashboardContent').innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Failed to load risk dashboard: ${error.message}
+                        </div>
+                    `;
+                }
+            }
+
+            renderRiskDashboard(riskData) {
+                const content = document.getElementById('riskDashboardContent');
+                
+                const html = `
+                    <!-- Header -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="text-primary mb-1">${riskData.symbol} Risk Analysis</h3>
+                                    <p class="text-muted mb-0">Current Price: $${riskData.current_price}</p>
+                                </div>
+                                <div class="text-end">
+                                    <div class="badge bg-${this.getRiskScoreColor(riskData.risk_score.overall)} fs-6 px-3 py-2">
+                                        Overall Risk Score: ${Math.round(riskData.risk_score.overall)}/100
+                                    </div>
+                                    <div class="small text-muted mt-1">${new Date(riskData.timestamp).toLocaleString()}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Alerts -->
+                    ${riskData.risk_alerts.length > 0 ? `
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card bg-dark border-warning">
+                                <div class="card-header">
+                                    <h6 class="mb-0 text-warning">
+                                        <i class="bi bi-exclamation-triangle me-2"></i>
+                                        Risk Alerts (${riskData.risk_alerts.length})
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    ${riskData.risk_alerts.map(alert => `
+                                        <div class="alert alert-${alert.type} border-0 py-2 mb-2">
+                                            <small>${alert.message}</small>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- Key Metrics Grid -->
+                    <div class="row mb-4">
+                        <!-- Value at Risk -->
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-dark border-danger">
+                                <div class="card-header">
+                                    <h6 class="mb-0 text-danger">
+                                        <i class="bi bi-exclamation-diamond me-2"></i>
+                                        Value at Risk
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted">95% Confidence</small>
+                                        <div class="h5 text-danger mb-0">$${riskData.value_at_risk.var_95_percent}</div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <small class="text-muted">99% Confidence</small>
+                                        <div class="h6 text-warning mb-0">$${riskData.value_at_risk.var_99_percent}</div>
+                                    </div>
+                                    <small class="text-muted">${riskData.value_at_risk.description}</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Volatility Analysis -->
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-dark border-warning">
+                                <div class="card-header">
+                                    <h6 class="mb-0 text-warning">
+                                        <i class="bi bi-lightning me-2"></i>
+                                        Volatility Analysis
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted">Daily Volatility</small>
+                                        <div class="h5 text-warning mb-0">${riskData.volatility_analysis.daily_volatility}%</div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <small class="text-muted">Annualized</small>
+                                        <div class="h6 text-muted mb-0">${riskData.volatility_analysis.annualized_volatility}%</div>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar bg-warning" style="width: ${Math.min(riskData.volatility_analysis.daily_volatility * 20, 100)}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Ratios -->
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-dark border-info">
+                                <div class="card-header">
+                                    <h6 class="mb-0 text-info">
+                                        <i class="bi bi-graph-up me-2"></i>
+                                        Performance Ratios
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted">Sharpe Ratio</small>
+                                        <div class="h5 text-info mb-0">${riskData.performance_ratios.sharpe_ratio}</div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <small class="text-muted">Beta</small>
+                                        <div class="h6 text-muted mb-0">${riskData.performance_ratios.beta}</div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <small class="text-muted">Win Rate</small>
+                                        <div class="h6 text-success mb-0">${riskData.performance_ratios.win_rate}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Position Sizing -->
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-dark border-success">
+                                <div class="card-header">
+                                    <h6 class="mb-0 text-success">
+                                        <i class="bi bi-pie-chart me-2"></i>
+                                        Position Sizing
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <small class="text-muted">Kelly Criterion</small>
+                                        <div class="h5 text-success mb-0">${riskData.position_sizing.kelly_criterion}%</div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <small class="text-muted">Risk Level</small>
+                                        <div class="h6 mb-0">
+                                            <span class="badge bg-${this.getRiskLevelColor(riskData.position_sizing.risk_level)}">${riskData.position_sizing.risk_level}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Scenarios Table -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card bg-dark border-secondary">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-calculator me-2"></i>
+                                        Risk-Reward Scenarios
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-dark table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Price Change</th>
+                                                    <th>Target Price</th>
+                                                    <th>Return</th>
+                                                    <th>Risk Level</th>
+                                                    <th>Probability</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${riskData.risk_scenarios.map(scenario => `
+                                                    <tr>
+                                                        <td><span class="badge bg-${scenario.price_change.startsWith('+') ? 'success' : scenario.price_change.startsWith('-') ? 'danger' : 'secondary'}">${scenario.price_change}</span></td>
+                                                        <td>$${scenario.target_price}</td>
+                                                        <td class="text-${scenario.potential_return.startsWith('+') ? 'success' : scenario.potential_return.startsWith('-') ? 'danger' : 'muted'}">${scenario.potential_return}</td>
+                                                        <td><span class="badge bg-${this.getRiskLevelColor(scenario.risk_level)}">${scenario.risk_level}</span></td>
+                                                        <td>
+                                                            <div class="progress" style="height: 20px;">
+                                                                <div class="progress-bar bg-info" style="width: ${scenario.probability * 100}%" role="progressbar">
+                                                                    ${Math.round(scenario.probability * 100)}%
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Impact Analysis -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card bg-dark border-primary">
+                                <div class="card-header">
+                                    <h6 class="mb-0 text-primary">
+                                        <i class="bi bi-briefcase me-2"></i>
+                                        Portfolio Impact Analysis
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-dark table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Portfolio Size</th>
+                                                    <th>Recommended Position</th>
+                                                    <th>Allocation %</th>
+                                                    <th>Shares</th>
+                                                    <th>Max Loss (95%)</th>
+                                                    <th>Risk Ratio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${riskData.portfolio_impact.map(impact => `
+                                                    <tr>
+                                                        <td class="fw-bold">$${impact.portfolio_size.toLocaleString()}</td>
+                                                        <td class="text-success">$${impact.recommended_position.toLocaleString()}</td>
+                                                        <td><span class="badge bg-info">${impact.position_percentage}</span></td>
+                                                        <td>${impact.shares.toLocaleString()}</td>
+                                                        <td class="text-danger">$${impact.max_loss_95.toLocaleString()}</td>
+                                                        <td>
+                                                            <span class="badge bg-${impact.risk_ratio < 0.05 ? 'success' : impact.risk_ratio < 0.10 ? 'warning' : 'danger'}">
+                                                                ${(impact.risk_ratio * 100).toFixed(1)}%
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Levels & Drawdown Analysis -->
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <div class="card bg-dark border-secondary">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-layers me-2"></i>
+                                        Key Support/Resistance Levels
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="text-center">
+                                                <small class="text-muted">Resistance</small>
+                                                <div class="h4 text-danger">$${riskData.key_levels.resistance}</div>
+                                                <small class="text-muted">${riskData.key_levels.distance_to_resistance}% away</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-center">
+                                                <small class="text-muted">Support</small>
+                                                <div class="h4 text-success">$${riskData.key_levels.support}</div>
+                                                <small class="text-muted">${riskData.key_levels.distance_to_support}% away</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-3">
+                            <div class="card bg-dark border-secondary">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-arrow-down-circle me-2"></i>
+                                        Drawdown Analysis
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="text-center">
+                                                <small class="text-muted">Max Drawdown</small>
+                                                <div class="h4 text-danger">${riskData.drawdown_analysis.max_drawdown}%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-center">
+                                                <small class="text-muted">Current Drawdown</small>
+                                                <div class="h4 text-${riskData.drawdown_analysis.current_drawdown < 0 ? 'warning' : 'success'}">${riskData.drawdown_analysis.current_drawdown}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ${riskData.drawdown_analysis.recovery_needed > 0 ? `
+                                        <div class="mt-3 text-center">
+                                            <small class="text-muted">Recovery Needed</small>
+                                            <div class="h6 text-warning">${riskData.drawdown_analysis.recovery_needed}%</div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                content.innerHTML = html;
+            }
+
+            getRiskScoreColor(score) {
+                if (score >= 75) return 'success';
+                if (score >= 50) return 'warning';
+                return 'danger';
+            }
+
+            getRiskLevelColor(level) {
+                switch(level.toLowerCase()) {
+                    case 'conservative': case 'low risk': return 'success';
+                    case 'moderate': case 'medium risk': return 'warning';
+                    case 'aggressive': case 'high risk': return 'danger';
+                    default: return 'secondary';
+                }
+            }
+        }
+
+        // Initialize the dashboard
+        const dashboard = new FinWalkDashboard();
+        
+        // Auto-analyze AAPL on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            dashboard.analyzeSymbol();
+        });
+    </script>
+    
+    <!-- Risk Dashboard Modal -->
+    <div class="modal fade" id="riskDashboardModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">
+                        <i class="bi bi-shield-exclamation text-warning me-2"></i>
+                        Interactive Trading Risk Dashboard
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div id="riskDashboardContent">
+                        <!-- Risk dashboard content will be loaded here -->
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading risk analysis...</span>
+                            </div>
+                            <p class="text-muted mt-3">Calculating comprehensive risk metrics...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Best Trades Today Modal -->
+    <div class="modal fade" id="bestTradesModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-star-fill me-2 text-warning"></i>
+                        Best Trades Today - Complete Market Analysis
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="bestTradesContent">
+                        <div class="text-center py-5">
+                            <div class="loading-spinner mb-3"></div>
+                            <p class="text-muted">Analyzing all instruments across all timeframes...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
